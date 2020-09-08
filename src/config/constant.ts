@@ -8,7 +8,6 @@ export const hours = [
   '06',
   '07',
   '08',
-  '08',
   '09',
   '10',
   '11',
@@ -22,12 +21,10 @@ export const hours = [
   '19',
   '20',
   '21',
-  '20',
-  '21',
   '22',
   '23',
 ];
-export const weekdays = ['Sun',  'Sat', 'Fri', 'Thu', 'Wed', 'Tue', 'Mon'];
+export const weekdays = ['Sun', 'Sat', 'Fri', 'Thu', 'Wed', 'Tue', 'Mon'];
 
 export const mappingWeekToArrayIndex = {
   Sun: 0,

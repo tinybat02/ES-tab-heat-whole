@@ -43929,8 +43929,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var date_fns_toDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns/toDate */ "../node_modules/date-fns/esm/toDate/index.js");
 /* harmony import */ var date_fns_tz__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns-tz */ "../node_modules/date-fns-tz/esm/index.js");
 
- // import moment from 'moment';
-// import moment from 'moment-timezone';
+ // import moment from 'moment-timezone';
 
 
 
@@ -43963,7 +43962,7 @@ var processData = function processData(valueArr, timestampArr) {
       timeZone: timeZone
     });
 
-    if (dayOfWeek !== 'Sun' && _config_constant__WEBPACK_IMPORTED_MODULE_1__["hours"].includes(hour)) {
+    if (_config_constant__WEBPACK_IMPORTED_MODULE_1__["hours"].includes(hour)) {
       templateTable[_config_constant__WEBPACK_IMPORTED_MODULE_1__["mappingWeekToArrayIndex"][dayOfWeek]][hour] += valueArr[idx];
       keepTrackWeek[_config_constant__WEBPACK_IMPORTED_MODULE_1__["mappingWeekToArrayIndex"][dayOfWeek]][hour] += 1;
     }
@@ -43974,12 +43973,12 @@ var processData = function processData(valueArr, timestampArr) {
       if (templateTable[i][hour] == 0) {
         templateTable[i][hour] = null;
       } else {
-        templateTable[i][hour] = Math.round(templateTable[i][hour] / keepTrackWeek[i][hour] * 100) / 100;
+        templateTable[i][hour] = Math.round(templateTable[i][hour] / keepTrackWeek[i][hour]);
       }
     });
   };
 
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 7; i++) {
     _loop_1(i);
   }
 

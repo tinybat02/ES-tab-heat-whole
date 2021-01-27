@@ -43660,30 +43660,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @grafana/ui */ "@grafana/ui");
+/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_grafana_ui__WEBPACK_IMPORTED_MODULE_2__);
+
+ //@ts-ignore
 
 
+var MainEditor = function MainEditor(_a) {
+  var options = _a.options,
+      onOptionsChange = _a.onOptionsChange;
 
-var MainEditor =
-/** @class */
-function (_super) {
-  Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"])(MainEditor, _super);
+  var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__read"])(Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(options.timezone), 2),
+      timezone = _b[0],
+      setTimezone = _b[1];
 
-  function MainEditor() {
-    return _super !== null && _super.apply(this, arguments) || this;
-  }
-
-  MainEditor.prototype.render = function () {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-      className: "section gf-form-group"
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
-      className: "section-heading"
-    }, "Display"));
+  var handleSubmit = function handleSubmit() {
+    onOptionsChange({
+      timezone: timezone
+    });
   };
 
-  return MainEditor;
-}(react__WEBPACK_IMPORTED_MODULE_1__["PureComponent"]);
-
-
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_grafana_ui__WEBPACK_IMPORTED_MODULE_2__["PanelOptionsGroup"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "editor-row"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "section gf-form-group"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h5", {
+    className: "section-heading"
+  }, "Timezone Settings"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_grafana_ui__WEBPACK_IMPORTED_MODULE_2__["FormField"], {
+    label: "Timezone",
+    labelWidth: 10,
+    inputWidth: 40,
+    type: "text",
+    name: "timezone",
+    value: timezone,
+    onChange: function onChange(e) {
+      return setTimezone(e.target.value);
+    }
+  }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    className: "btn btn-inverse",
+    onClick: handleSubmit
+  }, "Submit"));
+};
 
 /***/ }),
 
@@ -43725,6 +43742,7 @@ function (_super) {
 
   MainPanel.prototype.componentDidMount = function () {
     var series = this.props.data.series;
+    var timezone = this.props.options.timezone;
 
     if (series.length == 0) {
       return;
@@ -43736,8 +43754,7 @@ function (_super) {
       }, 0);
     });
     var timestampArray = series[0].fields[1].values.buffer;
-    console.log('timestamp arr ', timestampArray);
-    var data = Object(_utils_helpFunc__WEBPACK_IMPORTED_MODULE_3__["processData"])(valueArray, timestampArray).data;
+    var data = Object(_utils_helpFunc__WEBPACK_IMPORTED_MODULE_3__["processData"])(valueArray, timestampArray, timezone).data;
     this.setState({
       data: data
     });
@@ -43746,6 +43763,7 @@ function (_super) {
   MainPanel.prototype.componentDidUpdate = function (prevProps) {
     if (prevProps.data.series !== this.props.data.series) {
       var series_1 = this.props.data.series;
+      var timezone = this.props.options.timezone;
 
       if (series_1.length == 0) {
         this.setState({
@@ -43760,7 +43778,7 @@ function (_super) {
         }, 0);
       });
       var timestampArray = series_1[0].fields[1].values.buffer;
-      var data = Object(_utils_helpFunc__WEBPACK_IMPORTED_MODULE_3__["processData"])(valueArray, timestampArray).data;
+      var data = Object(_utils_helpFunc__WEBPACK_IMPORTED_MODULE_3__["processData"])(valueArray, timestampArray, timezone).data;
       this.setState({
         data: data
       });
@@ -43910,7 +43928,9 @@ var plugin = new _grafana_ui__WEBPACK_IMPORTED_MODULE_0__["PanelPlugin"](_MainPa
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaults", function() { return defaults; });
-var defaults = {};
+var defaults = {
+  timezone: 'Europe/Berlin'
+};
 
 /***/ }),
 
@@ -43932,9 +43952,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var processData = function processData(valueArr, timestampArr) {
+var processData = function processData(valueArr, timestampArr, timeZone) {
   var keepTrackWeek = [];
-  var timeZone = 'Europe/Athens';
   var templateTable = _config_constant__WEBPACK_IMPORTED_MODULE_1__["weekdays"].map(function (weekday) {
     var obj = {
       date: weekday

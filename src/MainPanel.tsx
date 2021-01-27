@@ -17,6 +17,7 @@ export class MainPanel extends PureComponent<Props> {
 
   componentDidMount() {
     const series = this.props.data.series as Frame[];
+    const { timezone } = this.props.options;
 
     if (series.length == 0) {
       return;
@@ -26,15 +27,15 @@ export class MainPanel extends PureComponent<Props> {
       series.reduce((sum, curr) => sum + curr.fields[0].values.buffer[i], 0)
     );
     const timestampArray = series[0].fields[1].values.buffer;
-    console.log('timestamp arr ', timestampArray);
 
-    const { data } = processData(valueArray, timestampArray);
+    const { data } = processData(valueArray, timestampArray, timezone);
     this.setState({ data });
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.data.series !== this.props.data.series) {
       const series = this.props.data.series as Frame[];
+      const { timezone } = this.props.options;
 
       if (series.length == 0) {
         this.setState({ data: null });
@@ -45,7 +46,7 @@ export class MainPanel extends PureComponent<Props> {
       );
       const timestampArray = series[0].fields[1].values.buffer;
 
-      const { data } = processData(valueArray, timestampArray);
+      const { data } = processData(valueArray, timestampArray, timezone);
       this.setState({ data });
     }
   }

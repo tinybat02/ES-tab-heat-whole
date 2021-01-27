@@ -43881,15 +43881,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "weekdays", function() { return weekdays; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mappingWeekToArrayIndex", function() { return mappingWeekToArrayIndex; });
 var hours = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
-var weekdays = ['Sun', 'Sat', 'Fri', 'Thu', 'Wed', 'Tue', 'Mon'];
+var weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 var mappingWeekToArrayIndex = {
-  Sun: 0,
-  Sat: 1,
-  Fri: 2,
+  Mon: 0,
+  Tue: 1,
+  Wed: 2,
   Thu: 3,
-  Wed: 4,
-  Tue: 5,
-  Mon: 6
+  Fri: 4,
+  Sat: 5,
+  Sun: 6
 };
 
 /***/ }),

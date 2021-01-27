@@ -43929,13 +43929,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var date_fns_toDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns/toDate */ "../node_modules/date-fns/esm/toDate/index.js");
 /* harmony import */ var date_fns_tz__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns-tz */ "../node_modules/date-fns-tz/esm/index.js");
 
- // import moment from 'moment-timezone';
 
 
 
 var processData = function processData(valueArr, timestampArr) {
   var keepTrackWeek = [];
-  var timeZone = 'Europe/Berlin';
+  var timeZone = 'Europe/Athens';
   var templateTable = _config_constant__WEBPACK_IMPORTED_MODULE_1__["weekdays"].map(function (weekday) {
     var obj = {
       date: weekday
@@ -43951,9 +43950,6 @@ var processData = function processData(valueArr, timestampArr) {
     return obj;
   });
   timestampArr.map(function (timestamp, idx) {
-    // const date = moment(timestamp).tz('Europe/Berlin');
-    // const dayOfWeek = date.locale('en').format('ddd') as DayOfWeek;
-    // const hour = date.format('HH');
     var zonedDate = Object(date_fns_tz__WEBPACK_IMPORTED_MODULE_3__["utcToZonedTime"])(Object(date_fns_toDate__WEBPACK_IMPORTED_MODULE_2__["default"])(timestamp), timeZone);
     var dayOfWeek = Object(date_fns_tz__WEBPACK_IMPORTED_MODULE_3__["format"])(zonedDate, 'eee', {
       timeZone: timeZone

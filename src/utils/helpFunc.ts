@@ -1,12 +1,11 @@
 import { hours, weekdays, mappingWeekToArrayIndex } from '../config/constant';
 import { DayObj, DayOfWeek } from '../types';
-// import moment from 'moment-timezone';
 import toDate from 'date-fns/toDate';
 import { utcToZonedTime, format } from 'date-fns-tz';
 
 export const processData = (valueArr: number[], timestampArr: number[]) => {
   const keepTrackWeek: Array<{ [key: string]: number }> = [];
-  const timeZone = 'Europe/Berlin';
+  const timeZone = 'Europe/Athens';
 
   const templateTable = weekdays.map(weekday => {
     const obj: DayObj = { date: weekday };
@@ -19,9 +18,6 @@ export const processData = (valueArr: number[], timestampArr: number[]) => {
   });
 
   timestampArr.map((timestamp, idx) => {
-    // const date = moment(timestamp).tz('Europe/Berlin');
-    // const dayOfWeek = date.locale('en').format('ddd') as DayOfWeek;
-    // const hour = date.format('HH');
     const zonedDate = utcToZonedTime(toDate(timestamp), timeZone);
     const dayOfWeek = format(zonedDate, 'eee', { timeZone }) as DayOfWeek;
     const hour = format(zonedDate, 'HH', { timeZone });
